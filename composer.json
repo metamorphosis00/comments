@@ -1,0 +1,17 @@
+{
+    "name": "islam/comments",
+    "description": "Comments page",
+    "type": "project",
+    "authors": [
+        {
+            "name": "metamorphosis00",
+            "email": "acmicpc15@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    }
+}
