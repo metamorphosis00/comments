@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Controllers;
+use App\Core\Controller;
 
-class CommentsController {
+class CommentsController extends Controller {
 
     public function index()
     {
-
+        return $this->view('comments.index');
     }
 
 } 

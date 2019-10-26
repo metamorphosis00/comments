@@ -13,8 +13,12 @@ class Controller {
 
     public function view($viewName, $params = [])
     {
-        require_once $this->view->getViewPath($viewName);
+        $viewFile = $this->view->getViewPath($viewName);
+        if (!file_exists($viewFile)) {
+            throw new \Exception('View '.$viewName.' not found in path '.$viewFile);
+        }
         extract($params);
-        return '';
+        $body = include_once $viewFile;
+        return $body;
     }
 } 
