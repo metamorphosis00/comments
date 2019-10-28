@@ -4,7 +4,7 @@ namespace App\Core;
 
 
 class View {
-    const DIRECTORY = '/views/';
+    const DIRECTORY = __DIR__.'/../../views/';
 
     public function getViewPath($viewName)
     {

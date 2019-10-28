@@ -5,10 +5,13 @@ namespace App\Core;
 class Controller {
 
     private $view;
+    protected $db;
+    protected $data = [];
 
     public function __construct()
     {
         $this->view  = new View();
+        $this->db    = new DB();
     }
 
     public function view($viewName, $params = [])
@@ -18,7 +21,14 @@ class Controller {
             throw new \Exception('View '.$viewName.' not found in path '.$viewFile);
         }
         extract($params);
-        $body = include_once $viewFile;
+        ob_start();
+        include_once $viewFile;
+        $body = ob_get_clean();
         return $body;
+    }
+
+    public function render($viewName)
+    {
+        return $this->view($viewName, $this->data);
     }
 } 
