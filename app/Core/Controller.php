@@ -14,21 +14,34 @@ class Controller {
         $this->db    = new DB();
     }
 
-    public function view($viewName, $params = [])
+    public function view($viewName, $params = [], $layout = 'main')
     {
         $viewFile = $this->view->getViewPath($viewName);
         if (!file_exists($viewFile)) {
             throw new \Exception('View '.$viewName.' not found in path '.$viewFile);
         }
         extract($params);
+
+        $result = '';
+
+
+        ob_start();
+        include_once $this->view->getLayoutPath($layout.'.header');
+        $result .= ob_get_clean();
+
         ob_start();
         include_once $viewFile;
-        $body = ob_get_clean();
-        return $body;
+        $result .= ob_get_clean();
+
+        ob_start();
+        include_once $this->view->getLayoutPath($layout.'.footer');
+        $result .= ob_get_clean();
+
+        return $result;
     }
 
-    public function render($viewName)
+    public function render($viewName, $layout = 'main')
     {
-        return $this->view($viewName, $this->data);
+        return $this->view($viewName, $this->data, $layout);
     }
 } 
